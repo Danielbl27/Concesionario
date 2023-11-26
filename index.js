@@ -49,10 +49,10 @@ let concesionarios = [
   
   ];
 
-// Lista todos los coches
-app.get("/coches", (request, response) => {
-  response.json(coches);
-});
+// Lista todos los concesionarios
+app.get("/concesionarios", (req, res) => {
+    res.json(concesionarios);
+  });
 
 // Añadir un nuevo coche
 app.post("/coches", (request, response) => {
