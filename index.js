@@ -61,12 +61,13 @@ app.post("/concesionarios", (req, res) => {
     res.json({ message: "ok" });
   });
   
-// Obtener un solo coche
-app.get("/coches/:id", (request, response) => {
-  const id = request.params.id;
-  const result = coches[id];
-  response.json({ result });
-});
+// Obtener un concesionario segun su ID
+app.get("/concesionarios/:id", (req, res) => {
+    const id = req.params.id;
+    const result = concesionarios[id];
+    res.json(result);
+  });
+  
 
 // Actualizar un solo coche
 app.put("/coches/:id", (request, response) => {
