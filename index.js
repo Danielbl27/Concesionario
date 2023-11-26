@@ -25,10 +25,29 @@ app.listen(port, () => {
 
 // Definimos una estructura de datos
 // (temporal hasta incorporar una base de datos)
-let coches = [
-  { marca: "Renault", modelo: "Clio" },
-  { marca: "Nissan", modelo: "Skyline R34" },
-];
+let concesionarios = [
+    {
+      nombre: "ConcesionarioOpel",
+      direccion: "Direccion1",
+      coches: [
+        { modelo: "Corsa", cv: 100, precio: 15000 },
+        { modelo: "Astra", cv: 120, precio: 18000 },
+        { modelo: "Mokka", cv: 150, precio: 20000 },
+        { modelo: "Zafira", cv: 110, precio: 13000 },
+      ],
+    },
+    {
+      nombre: "ConcesionarioSeat",
+      direccion: "Direccion2",
+      coches: [
+        { modelo: "Cordoba", cv: 100, precio: 15000 },
+        { modelo: "Ateca", cv: 120, precio: 28000 },
+        { modelo: "Tarraco", cv: 150, precio: 10000 },
+        { modelo: "Arona", cv: 120, precio: 13000 },
+      ],
+    },
+  
+  ];
 
 // Lista todos los coches
 app.get("/coches", (request, response) => {
