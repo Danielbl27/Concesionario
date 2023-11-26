@@ -98,3 +98,11 @@ app.post("/concesionarios/:id/coches", (req, res) => {
     concesionarios[id].coches.push(nuevoCoche);
     res.json({ message: "ok" });
   });
+
+//Obtiene el coche cuyo id sea cocheId, del concesionario pasado por id
+app.put("/concesionarios/:id/coches/:cocheId", (req, res) => {
+    const id = req.params.id;
+    const cocheId = req.params.cocheId;
+    concesionarios[id].coches[cocheId] = req.body;
+    res.json({ message: "ok" });
+  });
