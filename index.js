@@ -97,20 +97,28 @@ app.post("/concesionarios/:id/coches", (req, res) => {
     const nuevoCoche = req.body;
     concesionarios[id].coches.push(nuevoCoche);
     res.json({ message: "ok" });
-  });
+   });
 
 //Obtiene el coche cuyo id sea cocheId, del concesionario pasado por id
 app.get("/concesionarios/:id/coches/:cocheId", (req, res) => {
-  const id = req.params.id;
-  const cocheId = req.params.cocheId;
-  const coche = concesionarios[id].coches[cocheId];
-  res.json(coche);
-});
+    const id = req.params.id;
+    const cocheId = req.params.cocheId;
+    const coche = concesionarios[id].coches[cocheId];
+    res.json(coche);
+   });
 
 //Actualiza el coche cuyo id sea cocheId, del concesionario pasado por id
 app.put("/concesionarios/:id/coches/:cocheId", (req, res) => {
     const id = req.params.id;
     const cocheId = req.params.cocheId;
     concesionarios[id].coches[cocheId] = req.body;
+    res.json({ message: "ok" });
+   });
+
+//Borra el coche cuyo id sea cocheId, del concesionario pasado por id
+app.delete("/concesionarios/:id/coches/:cocheId", (req, res) => {
+    const id = req.params.id;
+    const cocheId = req.params.cocheId;
+    concesionarios[id].coches.splice(cocheId, 1);
     res.json({ message: "ok" });
   });
