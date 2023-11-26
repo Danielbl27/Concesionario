@@ -69,17 +69,18 @@ app.get("/concesionarios/:id", (req, res) => {
   });
   
 
-// Actualizar un solo coche
-app.put("/coches/:id", (request, response) => {
-  const id = request.params.id;
-  coches[id] = request.body;
-  response.json({ message: "ok" });
-});
+// Actualizar un concesionario segun su ID
+app.put("/concesionarios/:id", (req, res) => {
+    const id = req.params.id;
+    concesionarios[id] = req.body;
+    res.json({ message: "ok" });
+  });
 
-// Borrar un elemento del array
-app.delete("/coches/:id", (request, response) => {
-  const id = request.params.id;
-  coches = coches.filter((item) => coches.indexOf(item) !== id);
 
-  response.json({ message: "ok" });
-});
+// Borrar un concesionario
+app.delete("/concesionarios/:id", (req, res) => {
+    const id = req.params.id;
+    concesionarios.splice(id, 1);
+    res.json({ message: "ok" });
+  });
+
