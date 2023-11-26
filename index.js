@@ -54,12 +54,13 @@ app.get("/concesionarios", (req, res) => {
     res.json(concesionarios);
   });
 
-// Añadir un nuevo coche
-app.post("/coches", (request, response) => {
-  coches.push(request.body);
-  response.json({ message: "ok" });
-});
-
+// Añadir un nuevo concesionario
+app.post("/concesionarios", (req, res) => {
+    const nuevoConcesionario = req.body;
+    concesionarios.push(nuevoConcesionario);
+    res.json({ message: "ok" });
+  });
+  
 // Obtener un solo coche
 app.get("/coches/:id", (request, response) => {
   const id = request.params.id;
