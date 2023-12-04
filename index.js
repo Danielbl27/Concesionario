@@ -24,6 +24,26 @@ app.listen(port, () => {
 });
 
 // Definimos una estructura de datos
+//Vamos a añadir la base de datos de mongoDB
+const mongoDB = require("mongodb");
+//Vamos a cambiar el uri string a nuestro puerto
+const uri = "mongodb://127.0.0.1:27017";
+//Iniciamos la base de datos con nuestra uri
+const client = new MongoClient(uri);
+//Declaramos variables
+let database = undefined;
+let listaConcesionarios=undefined;
+//Vamos a crear una funcion que haga que el usuario se conecte a la base de datos
+async function connectBD(){
+//esperamos hasta que se conecte el cliente, si no daria fallo
+  await client.conect();
+  database=client.db("concesionariosDB");
+  listaConcesionarios =database.collection("concesionariosDB");
+
+
+
+
+}
 // (temporal hasta incorporar una base de datos)
 let concesionarios = [
     {
