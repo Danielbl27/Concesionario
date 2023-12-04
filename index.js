@@ -44,63 +44,51 @@ async function connectBD(){
 
 
 }
-// (temporal hasta incorporar una base de datos)
-let concesionarios = [
-    {
-      nombre: "ConcesionarioOpel",
-      direccion: "Direccion1",
-      coches: [
-        { modelo: "Corsa", cv: 100, precio: 15000 },
-        { modelo: "Astra", cv: 120, precio: 18000 },
-        { modelo: "Mokka", cv: 150, precio: 20000 },
-        { modelo: "Zafira", cv: 110, precio: 13000 },
-      ],
-    },
-    {
-      nombre: "ConcesionarioSeat",
-      direccion: "Direccion2",
-      coches: [
-        { modelo: "Cordoba", cv: 100, precio: 15000 },
-        { modelo: "Ateca", cv: 120, precio: 28000 },
-        { modelo: "Tarraco", cv: 150, precio: 10000 },
-        { modelo: "Arona", cv: 120, precio: 13000 },
-      ],
-    },
-  
-  ];
+
 
 // Lista todos los concesionarios
-app.get("/concesionarios", (req, res) => {
+app.get("/concesionarios",async (req, res) => {
+    const cursorConcesionarios= await listaConcesionarios.find({})//al usar asi el find nos listara toda la base de datos
+    const concesionarios=await cursorConcesionarios.toArray();
     res.json(concesionarios);
   });
 
 // Añadir un nuevo concesionario
-app.post("/concesionarios", (req, res) => {
-    const nuevoConcesionario = req.body;
-    concesionarios.push(nuevoConcesionario);
+app.post("/concesionarios",async(req, res) => {
+    const concesionario = await listaConcesionarios.insertOne(req.body);
+    
     res.json({ message: "ok" });
   });
   
 // Obtener un concesionario segun su ID
-app.get("/concesionarios/:id", (req, res) => {
+app.get("/concesionarios/:id",async (req, res) => {
     const id = req.params.id;
-    const result = concesionarios[id];
+    const result = await listaConcesionarios.findOne({_id:new ObjectId(id)});
     res.json(result);
   });
   
 
 // Actualizar un concesionario segun su ID
-app.put("/concesionarios/:id", (req, res) => {
+app.put("/concesionarios/:id",async (req, res) => {
     const id = req.params.id;
     concesionarios[id] = req.body;
+    const resultado = await listaConcesionarios.updateOne({_id: new ObjectId(concesionarioId)},
+    {
+      $set:{
+        nombre:concesionarioAct["nombre"],
+        direccion:concesionarioAct["direccion"],
+        coches:concesionarioAct["coches"],
+      },
+    }
+    );
     res.json({ message: "ok" });
   });
 
 
 // Borrar un concesionario
-app.delete("/concesionarios/:id", (req, res) => {
+app.delete("/concesionarios/:id", async (req, res) => {
     const id = req.params.id;
-    concesionarios.splice(id, 1);
+    const concesionario=await listaConcesionarios.deleteOne({_id:new ObjectId(id)})
     res.json({ message: "ok" });
   });
 
