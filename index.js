@@ -56,9 +56,6 @@ const swaggerDocument = require("./swagger.json");
 
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
-
-
-
 // Lista todos los concesionarios
 app.get("/concesionarios", async (req, res) => {
   const cursorConcesionarios = await listaConcesionarios.find({}); //al usar asi el find nos listara toda la base de datos
