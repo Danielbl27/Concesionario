@@ -40,6 +40,14 @@ async function connectBD() {
   database = client.db("concesionariosDB");
   listaConcesionarios = database.collection("concesionariosDB");
 }
+//Swagger-ui
+const swaggerUI = require("swagger-ui-express");
+const swaggerDocument = require("./swagger.json");
+
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
+
+
+
 
 // Lista todos los concesionarios
 app.get("/concesionarios", async (req, res) => {

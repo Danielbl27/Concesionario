@@ -1,0 +1,299 @@
+{
+    "swagger": "2.0",
+    "basePath": "/",
+    "info": {
+      "title": "ConcesionariosAPI",
+      "version": "0.0.1"
+    },
+    "definitions": {
+      "Coche": {
+        "type": "object",
+        "properties": {
+          "modelo": {
+            "type": "string"
+          },
+          "cv": {
+            "type": "integer"
+          },
+          "precio": {
+            "type": "integer"
+          }
+        },
+        "required": ["modelo", "cv", "precio"]
+      },
+      "Concesionario": {
+        "type": "object",
+        "properties": {
+          "nombre": {
+            "type": "string"
+          },
+          "direccion": {
+            "type": "string"
+          },
+          "coches": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "$ref": "#/definitions/Coche"
+            }
+          }
+        }
+      },
+      "required": ["nombre", "direcion", "coches"]
+    },
+    "paths": {
+      "/concesionarios": {
+        "get": {
+          "summary": "Get all car dealers.",
+          "responses": {
+            "200": {
+              "description": "Array with all car dealers",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/Concesionario"
+                }
+              }
+            }
+          }
+        },
+        "post": {
+          "summary": "Create a car dealer.",
+          "consumes": ["application/json"],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "concesionario",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/Concesionario"
+                },
+                "example": {
+                  "nombre": "concesionarioOpel",
+                  "direccion": "Malaga",
+                  "coches": [
+                    {
+                      "modelo": "Atra",
+                      "cv": 100,
+                      "precio": 10000
+                    }
+                  ]
+                }
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "{ message : 'ok'}"
+            }
+          }
+        }
+      },
+      "/concesionarios/{id}": {
+        "get": {
+          "summary": "Get one car dealer by id",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "type": "string",
+              "required": true
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Fetch one car dealer",
+              "schema": {
+                "$ref": "#/definitions/Concesionario"
+              }
+            }
+          }
+        },
+        "put": {
+          "summary": "Update one car dealer",
+          "operationId": "updateConcesionario",
+          "consumes": ["application/json"],
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "in": "body",
+              "name": "concesionario",
+              "schema": {
+                "$ref": "#/definitions/Concesionario"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "{ message: 'ok' }"
+            }
+          }
+        },
+        "delete": {
+          "summary": "Delete Concesionario",
+          "operationId": "deleteConcesionario",
+          "consumes": ["application/json"],
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "{ message: 'ok' }"
+            }
+          }
+        }
+      },
+      "/concesionarios/{id}/coches": {
+        "get": {
+          "summary": "Get all cars from a car dealer.",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "type": "string",
+              "required": true
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Array with all cars",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/Coche"
+                }
+              }
+            }
+          }
+        },
+        "post": {
+          "summary": "Create a car dealer.",
+          "consumes": ["application/json"],
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "in": "body",
+              "name": "coche",
+              "schema": {
+                "type": "object",
+                "items": {
+                  "$ref": "#/definitions/Coche"
+                },
+                "example": {
+                  "modelo": "Corsa",
+                  "cv": 120,
+                  "precio": 25000
+                }
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "{ message : 'ok'}"
+            }
+          }
+        }
+      },
+      "/concesionarios/{id}/coches/{pos}": {
+        "get": {
+          "summary": "Get specific car using car position in array.",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "in": "path",
+              "name": "pos",
+              "type": "integer",
+              "required": true
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Array with all cars",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/Coche"
+                }
+              }
+            }
+          }
+        },
+        "put": {
+          "summary": "Update one car",
+          "operationId": "updateCar",
+          "consumes": ["application/json"],
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "in": "path",
+              "name": "pos",
+              "type": "integer",
+              "required": true
+            },
+            {
+              "in": "body",
+              "name": "coche",
+              "schema": {
+                "$ref": "#/definitions/Coche"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "{ message: 'ok' }"
+            }
+          }
+        },
+        "delete": {
+          "summary": "Delete one car",
+          "operationId": "deleteCar",
+          "consumes": ["application/json"],
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "in": "path",
+              "name": "pos",
+              "type": "integer",
+              "required": true
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "{ message: 'ok' }"
+            }
+          }
+        }
+      }
+    }
+  }
