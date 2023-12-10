@@ -25,7 +25,7 @@ app.listen(port, () => {
 
 // Definimos una estructura de datos
 //Vamos a añadir la base de datos de mongoDB
-const mongoDB = require("mongodb");
+const { MongoClient, ObjectId } = require("mongodb");
 //Vamos a cambiar el uri string a nuestro puerto
 const uri = "mongodb://127.0.0.1:27017";
 //Iniciamos la base de datos con nuestra uri
@@ -34,11 +34,21 @@ const client = new MongoClient(uri);
 let database = undefined;
 let listaConcesionarios = undefined;
 //Vamos a crear una funcion que haga que el usuario se conecte a la base de datos
+
 async function connectBD() {
+  try{
   //esperamos hasta que se conecte el cliente, si no daria fallo
   await client.conect();
   database = client.db("concesionariosDB");
-  listaConcesionarios = database.collection("concesionariosDB");
+  listaConcesionarios = database.collection("concesionarios");
+}
+catch (e) {
+  console.error("ERROR DE CONEXIÓN A LA BBDD");
+  console.error(e);
+  // Ensures that the client will close when you finish/error
+  await client.close();
+  process.exit(-1);
+}
 }
 //Swagger-ui
 const swaggerUI = require("swagger-ui-express");

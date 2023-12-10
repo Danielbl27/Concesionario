@@ -4,20 +4,22 @@
     "description": "Este archivo se escribe en formato markdown.",
     "main": "index.js",
     "scripts": {
-      "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "echo \"Error: no test specified\" && exit 1"
     },
     "repository": {
-      "type": "git",
-      "url": "git+https://github.com/Danielbl27/Concesionario.git"
+        "type": "git",
+        "url": "git+https://github.com/Danielbl27/Concesionario.git"
     },
     "keywords": [],
     "author": "Daniel Blancas Jimenez",
     "license": "ISC",
     "bugs": {
-      "url": "https://github.com/Danielbl27/Concesionario.git"
+        "url": "https://github.com/Danielbl27/Concesionario.git"
     },
     "homepage": "https://github.com/Danielbl27/Concesionario.git",
     "dependencies": {
-      "express": "^4.18.2"
+        "express": "^4.18.2",
+        "mongodb": "6.3",
+        "swagger-ui-express": "^5.0.0"
     }
-  }
+}
